@@ -1,0 +1,47 @@
+[
+  {
+    "model": "apiv1.discipline",
+    "pk": "3d62a492-7ebb-494d-a75c-72de65ef505b",
+    "fields": {
+      "name": "Athlétisme",
+      "created_at": "2024-09-22T12:25:13.018Z",
+      "updated_at": "2024-09-22T12:25:13.018Z"
+    }
+  },
+  {
+    "model": "apiv1.discipline",
+    "pk": "85ce6b7e-6016-4c74-a1f8-3a487041e97b",
+    "fields": {
+      "name": "Basketball",
+      "created_at": "2024-09-22T12:25:13.018Z",
+      "updated_at": "2024-09-22T12:25:13.018Z"
+    }
+  },
+  {
+    "model": "apiv1.discipline",
+    "pk": "20537c5d-966a-4f7b-85b0-8b91622f3b8a",
+    "fields": {
+      "name": "Escrime",
+      "created_at": "2024-09-22T12:25:13.018Z",
+      "updated_at": "2024-09-22T12:25:13.018Z"
+    }
+  },
+  {
+    "model": "apiv1.discipline",
+    "pk": "b29b2173-348b-49bd-ba6a-2c20b39740e7",
+    "fields": {
+      "name": "Judo",
+      "created_at": "2024-09-22T12:25:13.018Z",
+      "updated_at": "2024-09-22T12:25:13.018Z"
+    }
+  },
+  {
+    "model": "apiv1.discipline",
+    "pk": "32ac06ad-36d7-4c54-a218-b7e2e24fbb8b",
+    "fields": {
+      "name": "Natation",
+      "created_at": "2024-09-22T12:25:13.018Z",
+      "updated_at": "2024-09-22T12:25:13.018Z"
+    }
+  }
+]
