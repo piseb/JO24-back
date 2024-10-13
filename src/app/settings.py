@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from typing import Union
 
 from .helpers import insert_environment_variables
 
@@ -28,10 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv("DEBUG", "False").upper() == "TRUE":
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = os.getenv("DEBUG", "FALSE").upper() == "TRUE"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -48,6 +46,21 @@ INSTALLED_APPS = [
     "rest_framework",
     "apiv1",
 ]
+
+# fix Mypy error
+REST_FRAMEWORK: dict[str, Union[str, list[str]]] = {}
+
+# if in DEBUG mode: add drf_spectacular
+if DEBUG:
+    INSTALLED_APPS += [
+        "drf_spectacular",
+    ]
+    REST_FRAMEWORK["DEFAULT_SCHEMA_CLASS"] = "drf_spectacular.openapi.AutoSchema"
+# if not in DEBUG mode: only rendering json so web rendering is disabled
+else:
+    REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [
+        "rest_framework.renderers.JSONRenderer"
+    ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
