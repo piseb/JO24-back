@@ -5,17 +5,16 @@ name: Deploy to Amazon ECS
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "feature/refactor-pipeline" ]
 
 env:
-  AWS_REGION: eu-west-3                       # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: github-repo          # set this to your Amazon ECR repository name
-  ECS_SERVICE: jo24-back-service                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: github-cluster                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: .aws/task-definition.json # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: jo24-back-container           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  # settings:
+  AWS_REGION: eu-west-3
+  ECR_REPOSITORY: jo24-back-dev-repo
+  ECS_CLUSTER: jo24-dev-cluster
+  ECS_SERVICE: jo24-back-dev-service
+  ECS_TASK_DEFINITION: .aws/task-definition.json
+  CONTAINER_NAME: jo24-back-dev-container
 
 permissions:
   contents: read
