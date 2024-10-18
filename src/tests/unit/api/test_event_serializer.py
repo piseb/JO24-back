@@ -2,8 +2,8 @@ import pytest
 
 from rest_framework.renderers import JSONRenderer
 
-from apiv1.models import Event
-from apiv1.serializers import EventSerializer
+from api.models import Event
+from api.serializers import EventSerializer
 
 
 @pytest.mark.django_db

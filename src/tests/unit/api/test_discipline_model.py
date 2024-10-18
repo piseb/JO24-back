@@ -4,7 +4,7 @@ from typing import Callable
 from django.forms import ValidationError
 from django.db import IntegrityError
 
-from apiv1.models import Discipline
+from api.models import Discipline
 
 
 @pytest.mark.django_db

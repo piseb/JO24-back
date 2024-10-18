@@ -44,12 +44,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "apiv1",
+    "api",
     "corsheaders",
 ]
 
 # fix Mypy error
 REST_FRAMEWORK: dict[str, Union[str, list[str]]] = {}
+
+REST_FRAMEWORK["DEFAULT_VERSIONING_CLASS"] = (
+    "rest_framework.versioning.URLPathVersioning"
+)
 
 # if in DEBUG mode: add drf_spectacular
 if DEBUG:
