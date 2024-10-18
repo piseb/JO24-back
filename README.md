@@ -30,7 +30,7 @@ L'application est prévue pour être utilisée dans un containeur et un Dockerfi
 - Pour toutes les valeurs nécessaires à la connexion de la BDD on utilise des variables d'environnement. Si les variables n'existent pas alors les valeurs sont prisent depuis le fichier ".env" (utilisation locale).
 - La valeur de la variable DEBUG vient aussi des variables d'environnement. Le déploiement automatique de la branch dev est en mode debug.
 
-## CI/CD
+## CI/CD Pipeline
 
 Les commit dans les branches main et dev activent automatiquement des GitHub Actions.
 
@@ -54,7 +54,7 @@ En mode debug l'API est auto documentée par drf-spectacular qui crée un schém
 
 Si le mode debug est désactivé alors l'API fournit uniquement les fichiers json en réponse aux requêtes, il y a aucune documentation.
 
-Par exemple pour l'application DJango apiv1 et en local sur le port 8000 on trouve la documentation aux URLs suivantes :
+Par exemple pour l'application DJango api et en local sur le port 8000 on trouve la documentation aux URLs suivantes :
 
 - <http://localhost:8000/api/v1/swagger-ui/>
 - <http://localhost:8000/api/v1/redoc/>
@@ -63,7 +63,7 @@ le schema :
 
 - <http://localhost:8000/api/v1/schema/>
 
-et les informations fournient par le rendu web de DRF :
+et les informations fournies par le rendu web de DRF :
 
 - <http://localhost:8000/api/v1/>
 
@@ -80,5 +80,5 @@ docker run -p 5432:5432 --name jo24-db -e POSTGRES_PASSWORD=jo24 -e POSTGRES_USE
 ```
 
 - Faire les migrations Django : `./manage.py migrate`.
-- Charger les fixtures : `./manage.py loaddata ./apiv1/fixtures/*json` (si besoin : `find -iwholename "*fixtures/*json" | xargs ./manage.py loaddata`.
+- Charger les fixtures : `./manage.py loaddata ./api/fixtures/*json` (si besoin : `find -iwholename "*fixtures/*json" | xargs ./manage.py loaddata`.
 - Lancer le serveur de dev : `./manage.py runserver`.
