@@ -1,6 +1,6 @@
 [
   {
-    "model": "apiv1.event",
+    "model": "api.event",
     "pk": "38acbe6e-2c39-4928-9ce3-450b84e0f083",
     "fields": {
       "discipline": "3d62a492-7ebb-494d-a75c-72de65ef505b",
@@ -13,7 +13,7 @@
     }
   },
   {
-    "model": "apiv1.event",
+    "model": "api.event",
     "pk": "2ff9e269-1048-4a4f-ae79-5f7466a32cda",
     "fields": {
       "discipline": "3d62a492-7ebb-494d-a75c-72de65ef505b",

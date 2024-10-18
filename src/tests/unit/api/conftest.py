@@ -8,7 +8,7 @@ from django.core.management import call_command
 
 from rest_framework.test import APIClient
 
-from apiv1.models import Discipline
+from api.models import Discipline
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 def django_db_setup(django_db_setup, django_db_blocker) -> None:
     logger.info('fixture(scope="package"): django_db_setup')
     with django_db_blocker.unblock():
-        call_command("loaddata", "tests/unit/apiv1/fixture.json")
+        call_command("loaddata", "tests/unit/api/fixture.json")
 
 
 @pytest.fixture

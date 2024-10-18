@@ -2,8 +2,8 @@ import pytest
 
 from rest_framework.renderers import JSONRenderer
 
-from apiv1.models import Discipline
-from apiv1.serializers import DisciplineSerializer
+from api.models import Discipline
+from api.serializers import DisciplineSerializer
 
 
 @pytest.mark.django_db
