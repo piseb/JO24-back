@@ -1,0 +1,17 @@
+name: workflows
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+  tests-coverage:
+    uses: ./.github/workflows/tests-coverage.yml
+  deploy:
+    needs: tests-coverage
+    uses: ./.github/workflows/deploy.yml
