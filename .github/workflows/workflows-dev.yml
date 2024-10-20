@@ -15,3 +15,4 @@ jobs:
   deploy:
     needs: tests-coverage
     uses: ./.github/workflows/deploy.yml
+    secrets: inherit
