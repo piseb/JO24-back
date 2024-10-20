@@ -5,6 +5,16 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15.4
+        env:
+          POSTGRES_USER: jo24
+          POSTGRES_PASSWORD: jo24
+          POSTGRES_DB: jo24
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     strategy:
       matrix:
         python-version: ["3.12"]
@@ -19,10 +29,20 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Test with pytest
+        env:
+          DB_NAME: jo24
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USERNAME: jo24
+          DB_PASSWORD: jo24
+          DEBUG: TRUE
+          SECRET_KEY: FOR_TESTS_ONLY_lo^bj$rst_1d*q_h3r3(2i4@2h4v($hne1b&t=v9*1)6&n@2zp
+          ALLOWED_HOSTS: localhost
         working-directory: ./src
         run:
           |
           coverage run -m pytest  -v -s
       - name: Generate Coverage Report
+        working-directory: ./src
         run: |
           coverage report -m
