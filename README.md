@@ -32,13 +32,19 @@ L'application est prévue pour être utilisée dans un containeur et un Dockerfi
 
 ## CI/CD Pipeline
 
-Les commit dans les branches main et dev activent automatiquement des GitHub Actions.
+Les commit dans les branches main et dev ont des GitHub Actions.
 
-Les images sont build par GitHub puis push dans le dépot d'aws ECR (Elastic Container Resgistry). Une mise à jour de la tache dédiée pour la nouvelle image est effectuée (aws ECS Elastic Container Service). Alors un nouveau containeur depuis cette nouvelle image est mis en service.
+### Tests
+
+GitHub Actions exécute des tests avec pytest et un rapport de coverage (couverture) du code pour toutes les branches. Si les tests échouent la suite n'est pas exécutée.
+
+### Déploiement
+
+Ensuite, l'image est build et push dans le dépot d'aws ECR (Elastic Container Resgistry). Une mise à jour de la tache correspondante est effectuée (aws ECS Elastic Container Service) pour changer l'URI de l'image. Le service ECS prend le relais pour déployer la nouvelle définition de la tache.
 
 **Il ne faut pas s'arrêter à la confirmation de GitHub**, le déploiement du containeur peut avoir des problèmes. Il est peut être nécessaire d'aller voir les logs de la tâche dans aws ECS.
 
-Les fichiers pour la configuration de GitHub Actions sont dans le dossier `.github/workflows`
+Les fichiers pour GitHub Actions sont dans le dossier `.github/workflows`.
 
 ## API RESTful
 
