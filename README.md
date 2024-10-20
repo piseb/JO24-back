@@ -36,7 +36,7 @@ Les commit dans les branches main et dev ont des GitHub Actions.
 
 ### Tests
 
-Les GitHub Actions exécutent des tests avec pytest et un rapport de coverage (couverture) du code pour toutes les branches. Si les tests échouent la suite n'est pas exécutée.
+GitHub Actions exécute des tests avec pytest et un rapport de coverage (couverture) du code pour toutes les branches. Si les tests échouent la suite n'est pas exécutée.
 
 ### Déploiement
 
@@ -44,7 +44,7 @@ Ensuite, l'image est build et push dans le dépot d'aws ECR (Elastic Container R
 
 **Il ne faut pas s'arrêter à la confirmation de GitHub**, le déploiement du containeur peut avoir des problèmes. Il est peut être nécessaire d'aller voir les logs de la tâche dans aws ECS.
 
-Les GitHub Actions sont dans le dossier `.github/workflows`.
+Les fichier pour GitHub Actions sont dans le dossier `.github/workflows`.
 
 ## API RESTful
 
