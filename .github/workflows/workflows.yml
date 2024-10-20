@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-  run-test:
-    uses: ./.github/workflows/run-test.yml
-  dev-build:
-    if: ${{github.ref== 'dev'}}
-    needs: run-test
-    uses: ./.github/workflows/dev.build.yml
+  tests-coverage:
+    uses: ./.github/workflows/tests-coverage.yml
+  deploy:
+    if: github.ref == 'dev' || github.ref == 'main'
+    needs: tests-coverage
+    uses: ./.github/workflows/deploy.yml
