@@ -1,8 +1,9 @@
+# This workflow build a postgres, run the tests and generate a coverage report.
+
 name: Run Unit Test via Pytest
 
 on:
   workflow_call:
-  push:
 
 jobs:
   build:

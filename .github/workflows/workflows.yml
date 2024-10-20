@@ -8,8 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-  call-workflow-run-test:
-    uses: ./.github/workflows/run_test.yml
-  call-workflow-dev-build:
-    needs: call-workflow-run-test
+  run-test:
+    uses: ./.github/workflows/run-test.yml
+  dev-build:
+    if: ${{github.ref== 'dev'}}
+    needs: run-test
     uses: ./.github/workflows/dev.build.yml
