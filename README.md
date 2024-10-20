@@ -44,7 +44,7 @@ Ensuite, l'image est build et push dans le dépot d'aws ECR (Elastic Container R
 
 **Il ne faut pas s'arrêter à la confirmation de GitHub**, le déploiement du containeur peut avoir des problèmes. Il est peut être nécessaire d'aller voir les logs de la tâche dans aws ECS.
 
-Les fichier pour GitHub Actions sont dans le dossier `.github/workflows`.
+Les fichiers pour GitHub Actions sont dans le dossier `.github/workflows`.
 
 ## API RESTful
 
