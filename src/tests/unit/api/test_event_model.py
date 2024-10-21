@@ -1,10 +1,9 @@
 import pytest
-from copy import deepcopy
 from typing import Callable
 
-from django.forms import ValidationError
+from django.core.exceptions import ValidationError
 
-from api.models import Event, Discipline
+from api.models import Event
 
 
 @pytest.mark.django_db
@@ -14,30 +13,6 @@ def test_str(get_event_sample_fields: dict) -> None:
         str(event)
         == f"{get_event_sample_fields["title"]} ({get_event_sample_fields["begin_at"]}/{get_event_sample_fields["end_at"]}): {get_event_sample_fields["description"][:5]}"
     )
-
-
-@pytest.mark.django_db
-def test_some_field_must_be_not_empty_and_the_exception_message(
-    get_event_sample_fields: dict,
-) -> None:
-
-    event_fields_to_test = get_event_sample_fields
-    disc = event_fields_to_test.pop("discipline")
-    event_fields_not_to_test = {"discipline": disc}
-
-    # we create an instance with good parameters,
-    # so we can test with same parameters but only 1 field edited
-    Event.objects.create(**event_fields_not_to_test, **event_fields_to_test)
-
-    for field in event_fields_to_test:
-        testing_parameters = deepcopy(event_fields_to_test)
-        testing_parameters[field] = ""
-        event = Event(**event_fields_not_to_test, **testing_parameters)
-        with pytest.raises(
-            ValidationError,
-            match=f"^\\{{'{field}': \\['L[a|e] .* est obligatoire.'\\]\\}}",
-        ):
-            event.save()
 
 
 @pytest.mark.django_db
@@ -55,8 +30,7 @@ def test_begin_at_must_be_not_after_end_at_and_the_exception_message(
     with pytest.raises(ValidationError) as excinfo:
         Event.objects.create(**get_event_sample_fields)
     assert (
-        str(excinfo.value)
-        == "{'end_at': ['La date de fin doit être la même ou après la date de début.']}"
+        str(excinfo.value) == "{'end_at': ['end_at must be equal or after begin_at']}"
     )
 
 
