@@ -1,8 +1,8 @@
 import pytest
+from typing import Callable
 import logging
 from random import random
 from math import floor
-from typing import Callable
 
 from django.core.management import call_command
 
@@ -20,8 +20,21 @@ def django_db_setup(django_db_setup, django_db_blocker) -> None:
         call_command("loaddata", "tests/unit/api/fixture.json")
 
 
+@pytest.fixture(scope="function")
+def api_client():
+    yield APIClient()
+
+
+@pytest.fixture
+def get_2_dates_with_2_days_following_each_other() -> tuple[str, str]:
+    """return a tuple with 2 dates and 2 days following each other"""
+    return ("2024-09-22", "2024-09-23")
+
+
 @pytest.fixture
 def create_discipline_sample_fields() -> Callable:
+    """return fields ready to create a discipline"""
+
     def _create_discipline_sample_fields() -> dict:
         # name field must be unique
         return {"name": f"sample {floor(random() * 100_000)}"}
@@ -30,39 +43,21 @@ def create_discipline_sample_fields() -> Callable:
 
 
 @pytest.fixture
-def get_discipline_sample_fields(create_discipline_sample_fields) -> dict:
-    return create_discipline_sample_fields()
-
-
-@pytest.fixture
 def create_event_sample_fields(
-    create_discipline_sample_fields,
-    get_date_with_2_days_following_each_other,
+    create_discipline_sample_fields: Callable,
+    get_2_dates_with_2_days_following_each_other: tuple[str, str],
 ) -> Callable:
+    """return fields ready to create an event"""
+
     def _create_event_sample_fields() -> dict:
         disc = Discipline.objects.create(**create_discipline_sample_fields())
         return {
             # title field must be unique
             "title": f"sample {floor(random() * 100_000)}",
-            "begin_at": get_date_with_2_days_following_each_other[0],
-            "end_at": get_date_with_2_days_following_each_other[1],
+            "begin_at": get_2_dates_with_2_days_following_each_other[0],
+            "end_at": get_2_dates_with_2_days_following_each_other[1],
             "description": "sample description",
             "discipline": disc,
         }
 
     return _create_event_sample_fields
-
-
-@pytest.fixture
-def get_event_sample_fields(create_event_sample_fields) -> dict:
-    return create_event_sample_fields()
-
-
-@pytest.fixture
-def get_date_with_2_days_following_each_other() -> tuple[str, str]:
-    return ("2024-09-22", "2024-09-23")
-
-
-@pytest.fixture(scope="function")
-def api_client():
-    yield APIClient()
