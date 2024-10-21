@@ -34,3 +34,22 @@ class Event(models.Model):
 
     def __str__(self) -> str:
         return f"{self.title} ({self.begin_at}/{self.end_at}): {self.description[:5]}"
+
+
+class Offer(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=100, blank=False, unique=True)
+    description = models.TextField(blank=False)
+    price = models.DecimalField(max_digits=6, decimal_places=2, blank=False)
+    ntickets = models.PositiveSmallIntegerField(blank=False)
+    disable = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return (
+            "DISABLE: "
+            if self.disable
+            else ""
+            + f"{self.title} ({self.price}€ / {self.ntickets} tickets): {self.description[:5]}"
+        )

@@ -1,0 +1,41 @@
+[
+  {
+    "model": "api.offer",
+    "pk": "7554b08f-dd43-4254-b695-c97c545f95ab",
+    "fields": {
+      "title": "solo",
+      "description": "Ne restez pas seul(e) chez vous !",
+      "price": "1999.99",
+      "ntickets": 1,
+      "disable": false,
+      "created_at": "2024-10-21T13:18:37.063Z",
+      "updated_at": "2024-10-21T13:18:37.063Z"
+    }
+  },
+  {
+    "model": "api.offer",
+    "pk": "b25d6938-c096-4cb5-8f53-8cb16412dcab",
+    "fields": {
+      "title": "duo",
+      "description": "Invitez votre ami(e) !",
+      "price": "3499.99",
+      "ntickets": 2,
+      "disable": false,
+      "created_at": "2024-10-21T13:19:55.844Z",
+      "updated_at": "2024-10-21T13:19:55.844Z"
+    }
+  },
+  {
+    "model": "api.offer",
+    "pk": "e098f441-c675-499a-aa3a-847f8bc2da53",
+    "fields": {
+      "title": "familiale",
+      "description": "Venez en famille !",
+      "price": "6456.99",
+      "ntickets": 4,
+      "disable": false,
+      "created_at": "2024-10-21T13:21:11.125Z",
+      "updated_at": "2024-10-21T13:21:11.125Z"
+    }
+  }
+]
