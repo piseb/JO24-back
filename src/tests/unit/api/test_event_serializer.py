@@ -11,7 +11,7 @@ from api.serializers import EventSerializer
 def test_serialized_to_json(create_event_sample_fields: Callable) -> None:
     event_sample_fields = create_event_sample_fields()
     event_sample = Event.objects.create(**event_sample_fields)
-    discipline_event_sample = Discipline.objects.last()
+    discipline_event_sample = Discipline.objects.get(uuid=event_sample.discipline.uuid)
     event_serialized = EventSerializer(event_sample)
     json = JSONRenderer().render(event_serialized.data)
     assert (
