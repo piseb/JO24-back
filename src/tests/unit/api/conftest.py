@@ -1,3 +1,4 @@
+from decimal import Decimal
 import pytest
 from typing import Callable
 import logging
@@ -12,12 +13,22 @@ from api.models import Discipline
 
 logger = logging.getLogger(__name__)
 
+# setttings:
+dir_fixtures = "tests/unit/api/fixtures/"
+fixtures = [
+    "disciplines.json",
+    "events.json",
+    "offers.json",
+]
+
 
 @pytest.fixture(scope="package")
 def django_db_setup(django_db_setup, django_db_blocker) -> None:
     logger.info('fixture(scope="package"): django_db_setup')
     with django_db_blocker.unblock():
-        call_command("loaddata", "tests/unit/api/fixture.json")
+        # load all the fixtures from settings
+        for fixture in fixtures:
+            call_command("loaddata", dir_fixtures + fixture)
 
 
 @pytest.fixture(scope="function")
@@ -61,3 +72,20 @@ def create_event_sample_fields(
         }
 
     return _create_event_sample_fields
+
+
+@pytest.fixture
+def create_offer_sample_fields() -> Callable:
+    """return fields ready to create an offer"""
+
+    def _create_offer_sample_fields() -> dict:
+        # title field must be unique
+        return {
+            "title": f"sample {floor(random() * 100_000)}",
+            "description": "blabla",
+            "price": Decimal(f"{floor(random() * 10_000)}.{floor(random() * 100)}"),
+            "ntickets": floor(random() * 10),
+            "disable": False,
+        }
+
+    return _create_offer_sample_fields
