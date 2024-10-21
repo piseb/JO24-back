@@ -11,4 +11,7 @@ def test_discipline_serialized_to_json(get_discipline_sample_fields: dict) -> No
     disc_sample = Discipline.objects.create(**get_discipline_sample_fields)
     disc_sample_serialized = DisciplineSerializer(disc_sample)
     json = JSONRenderer().render(disc_sample_serialized.data)
-    assert json == f'{{"id":"{disc_sample.id}","name":"{disc_sample.name}"}}'.encode()
+    assert (
+        json
+        == f'{{"uuid":"{disc_sample.uuid}","name":"{get_discipline_sample_fields["name"]}"}}'.encode()
+    )
