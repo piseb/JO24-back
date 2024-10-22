@@ -37,5 +37,18 @@
       "created_at": "2024-10-21T13:21:11.125Z",
       "updated_at": "2024-10-21T13:21:11.125Z"
     }
+  },
+  {
+    "model": "api.offer",
+    "pk": "9dffd10a-3fca-4762-889d-e3c59ad3bf09",
+    "fields": {
+      "title": "Tous",
+      "description": "Tout le monde !",
+      "price": "9876.54",
+      "ntickets": 123,
+      "disable": true,
+      "created_at": "2024-10-21T13:21:11.125Z",
+      "updated_at": "2024-10-21T13:21:11.125Z"
+    }
   }
 ]

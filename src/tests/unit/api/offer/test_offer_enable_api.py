@@ -3,7 +3,7 @@ import pytest
 
 @pytest.mark.django_db
 def test_read_list(api_client) -> None:
-    response = api_client.get("/api/v1/offers/", format="json")
+    response = api_client.get("/api/v1/offers/enable/", format="json")
     assert response.status_code == 200
     assert response.data == [
         {
@@ -30,31 +30,4 @@ def test_read_list(api_client) -> None:
             "ntickets": 4,
             "disable": False,
         },
-        {
-            "uuid": "9dffd10a-3fca-4762-889d-e3c59ad3bf09",
-            "title": "Tous",
-            "description": "Tout le monde !",
-            "price": "9876.54",
-            "ntickets": 123,
-            "disable": True,
-        },
     ]
-
-
-@pytest.mark.django_db
-def test_read(api_client) -> None:
-    response = api_client.get(
-        "/api/v1/offers/7554b08f-dd43-4254-b695-c97c545f95ab/", format="json"
-    )
-    assert response.status_code == 200
-    assert response.data == {
-        "uuid": "7554b08f-dd43-4254-b695-c97c545f95ab",
-        "title": "solo",
-        "description": "Ne restez pas seul(e) chez vous !",
-        "price": "1999.99",
-        "ntickets": 1,
-        "disable": False,
-    }
-
-    response = api_client.get("/api/v1/offers/1/", format="json")
-    assert response.status_code == 404
