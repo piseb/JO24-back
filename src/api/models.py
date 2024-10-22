@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal
 
 from django.db import models
 from django.forms import ValidationError
@@ -40,16 +41,24 @@ class Offer(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=100, blank=False, unique=True)
     description = models.TextField(blank=False)
-    price = models.DecimalField(max_digits=6, decimal_places=2, blank=False)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=False)
     ntickets = models.PositiveSmallIntegerField(blank=False)
     disable = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs) -> None:
+        self.clean()
+        super().save(*args, **kwargs)
+
+    def clean(self) -> None:
+        # adding 0 after decimal if need (10.1 -> 10.10 and 10 -> 10.00)
+        self.price = format(Decimal(self.price), ".2f")
+        if self.ntickets == 0:
+            raise ValidationError({"ntickets": "at least 1 ticket"})
+
     def __str__(self) -> str:
-        return (
-            "DISABLE: "
-            if self.disable
-            else ""
-            + f"{self.title} ({self.price}€ / {self.ntickets} tickets): {self.description[:5]}"
-        )
+        resp = f"{self.title} ({self.price}€ / {self.ntickets} tickets): {self.description[:5]}"
+        if self.disable:
+            return "DISABLE: " + resp
+        return resp
