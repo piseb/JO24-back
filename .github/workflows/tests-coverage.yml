@@ -1,12 +1,16 @@
 # This workflow build a postgres, run the tests and generate a coverage report.
 
-name: Run Unit Test via Pytest
+name: Run Unit Test via Pytest and Report Coverage
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - dev
+      - 'feature/**'
 
 jobs:
-  build:
+  tests-coverage:
+    name: Test & Coverage report
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -18,15 +22,12 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-    strategy:
-      matrix:
-        python-version: ["3.12"]
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ env.PYTHON_VERSION }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
