@@ -1,10 +1,12 @@
 # This workflow will build and push a new container image to Amazon ECR,
 # and then will deploy a new task definition to Amazon ECS.
 
-name: Deploy to Amazon ECS
+name: Deploy dev branch to Amazon ECS
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - dev
 
 env:
   # settings:
@@ -20,10 +22,9 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
-    name: Deploy
+  Deploy:
+    name: Deploy dev branch
     runs-on: ubuntu-latest
-    environment: dev
 
     steps:
     - name: Checkout
