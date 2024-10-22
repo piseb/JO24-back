@@ -87,8 +87,9 @@ def create_offer_sample_fields() -> Callable:
             "ntickets": floor(random() * 10) + 1,  # cant be 0
             "disable": False,
         }
-        # for get a cleaned price field with the model method:
+        # for get a cleaned price field from the model method:
         offer = Offer(**fields)
+        offer.clean()
         fields["price"] = offer.price
         return fields
 
