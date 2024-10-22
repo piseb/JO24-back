@@ -7,7 +7,9 @@ from . import views
 router = DefaultRouter()
 router.register("disciplines", views.DisciplineViewSet)
 router.register("events", views.EventViewSet)
-router.register("offers", views.OfferViewSet)
+# order line is important
+router.register("offers/enable", views.OfferEnableViewSet, basename="offer-enable")
+router.register("offers", views.OfferViewSet, basename="offer")
 
 urlpatterns = [
     path("", include(router.urls)),

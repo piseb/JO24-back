@@ -20,3 +20,9 @@ class OfferViewSet(viewsets.ReadOnlyModelViewSet):
     allowed_versions = ["v1"]
     queryset = Offer.objects.all()
     serializer_class = OfferSerializer
+
+
+class OfferEnableViewSet(viewsets.ReadOnlyModelViewSet):
+    allowed_versions = ["v1"]
+    queryset = Offer.objects.filter(disable=False)
+    serializer_class = OfferSerializer  # no need another serializer

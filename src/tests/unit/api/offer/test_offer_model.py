@@ -2,6 +2,7 @@ import pytest
 from typing import Callable
 
 from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 
 from api.models import Offer
 
@@ -34,3 +35,13 @@ def test_title_must_be_unique_and_the_exception_message(
         IntegrityError, match="^duplicate key value violates unique constraint"
     ):
         Offer.objects.create(**offer_2_sample_fields)
+
+
+@pytest.mark.django_db
+def test_ntickers_cant_be_lower_than1(create_offer_sample_fields: Callable):
+    offer_sample_fields = create_offer_sample_fields()
+    offer_sample_fields["ntickets"] = 0
+
+    with pytest.raises(ValidationError) as excinfo:
+        Offer.objects.create(**offer_sample_fields)
+    assert str(excinfo.value) == "{'ntickets': ['at least 1 ticket']}"

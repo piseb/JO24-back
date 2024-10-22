@@ -9,7 +9,7 @@ from django.core.management import call_command
 
 from rest_framework.test import APIClient
 
-from api.models import Discipline
+from api.models import Discipline, Offer
 
 logger = logging.getLogger(__name__)
 
@@ -80,12 +80,17 @@ def create_offer_sample_fields() -> Callable:
 
     def _create_offer_sample_fields() -> dict:
         # title field must be unique
-        return {
+        fields = {
             "title": f"sample {floor(random() * 100_000)}",
             "description": "blabla",
             "price": Decimal(f"{floor(random() * 10_000)}.{floor(random() * 100)}"),
-            "ntickets": floor(random() * 10),
+            "ntickets": floor(random() * 10) + 1,  # cant be 0
             "disable": False,
         }
+        # for get a cleaned price field from the model method:
+        offer = Offer(**fields)
+        offer.clean()
+        fields["price"] = offer.price
+        return fields
 
     return _create_offer_sample_fields
