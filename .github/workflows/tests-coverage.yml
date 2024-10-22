@@ -12,6 +12,7 @@ jobs:
   tests-coverage:
     name: Test & Coverage report
     runs-on: ubuntu-latest
+    environment: feature
     services:
       postgres:
         image: postgres:15.4
