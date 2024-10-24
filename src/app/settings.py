@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "api",
     "corsheaders",
+    "rest_framework.authtoken",
 ]
 
 # fix Mypy error
@@ -66,6 +67,14 @@ else:
     REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [
         "rest_framework.renderers.JSONRenderer"
     ]
+
+REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"] = [
+    "rest_framework.authentication.TokenAuthentication"
+]
+
+REST_FRAMEWORK["DEFAULT_PERMISSION_CLASSES"] = [
+    "rest_framework.permissions.IsAuthenticated"
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

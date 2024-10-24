@@ -62,3 +62,19 @@ class Offer(models.Model):
         if self.disable:
             return "DISABLE: " + resp
         return resp
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(
+        "auth.User", related_name="user_profile", on_delete=models.CASCADE
+    )
+    phone_landline = models.CharField(max_length=20)
+    phone_cell = models.CharField(max_length=20)
+    adress = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=10)
+    city = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.user.username}: {self.user.first_name} {self.user.last_name}"

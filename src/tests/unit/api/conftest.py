@@ -19,6 +19,7 @@ fixtures = [
     "disciplines.json",
     "events.json",
     "offers.json",
+    "auth.json",
 ]
 
 
