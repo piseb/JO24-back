@@ -5,6 +5,8 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
+router.register("login", views.LoginViewSet, basename="login")
+router.register("logout", views.LogoutViewSet, basename="logout")
 router.register("disciplines", views.DisciplineViewSet)
 router.register("events", views.EventViewSet)
 # order line is important

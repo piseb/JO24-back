@@ -19,6 +19,11 @@ class OfferAdmin(admin.ModelAdmin):
     list_filter = ["disable"]
 
 
+class UserProfileAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(models.Discipline, DisciplineAdmin)
 admin.site.register(models.Event, EventAdmin)
 admin.site.register(models.Offer, OfferAdmin)
+admin.site.register(models.UserProfile, UserProfileAdmin)
